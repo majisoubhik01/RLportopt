@@ -20,11 +20,11 @@ n50stocks = ["ADANIPORTS.NS", "ASIANPAINT.NS", "AXISBANK.NS", "BAJAJ-AUTO.NS", "
             "ITC.NS", "JSWSTEEL.NS", "KOTAKBANK.NS", "LT.NS", "M&M.NS", "MARUTI.NS", "NESTLEIND.NS", "NTPC.NS", "ONGC.NS",
             "POWERGRID.NS", "RELIANCE.NS", "SBILIFE.NS", "SBIN.NS", "SHREECEM.NS", "SUNPHARMA.NS", "TATACONSUM.NS", 
             "TATAMOTORS.NS", "TATASTEEL.NS", "TCS.NS", "TECHM.NS", "TITAN.NS", "ULTRACEMCO.NS", "UPL.NS", "WIPRO.NS", "HDFC.NS", 
-            "DRREDDY.NS", "DIVISLAB.NS", "BRITANNIA.NS", "COALINDIA.NS", "EICHERMOT.NS", "AXISBANK-DVR.NS", "SAIL.NS", "PNB.NS", 
+            "DRREDDY.NS", "DIVISLAB.NS", "BRITANNIA.NS", "COALINDIA.NS", "EICHERMOT.NS", "SAIL.NS", "PNB.NS", 
             "AUROPHARMA.NS", "GAIL.NS"]
-stocks = ["TATAMOTORS.NS", "ASHOKLEY.NS", "EICHERMOT.NS", "MARUTI.NS", "TVSMOTOR.NS", "MOTHERSON.NS", "SONACOMS.NS", "BAJAJ-AUTO.NS", "BALKRISIND.NS", "M&M.NS",
-          "AUBANK.NS", "INDUSINDBK.NS", "PNB.NS", "SBIN.NS", "BANDHANBNK.NS", "HDFCBANK.NS", "KOTAKBANK.NS", "IDFCFIRSTB.NS", "ICICIBANK.NS", "BANKBARODA.NS",
-          "BAJFINANCE.NS", "ADANIENT.NS", "TATAMOTORS.NS", "INDUSINDBK.NS", "HDFCLIFE.NS", "DIVISLAB.NS", "SBILIFE.NS", "HDFC.NS", "KOTAKBANK.NS", "ITC.NS",
+stocks = ["TATAMOTORS.NS", "ASHOKLEY.NS", "EICHERMOT.NS", "MARUTI.NS", "TVSMOTOR.NS", "MOTHERSON.NS", "BHARATFORG.NS", "BAJAJ-AUTO.NS", "BALKRISIND.NS", "M&M.NS",
+          "AUBANK.NS", "INDUSINDBK.NS", "PNB.NS", "SBIN.NS", "FEDERALBNK.NS", "HDFCBANK.NS", "KOTAKBANK.NS", "IDFCFIRSTB.NS", "ICICIBANK.NS", "BANKBARODA.NS",
+          "BAJFINANCE.NS", "ADANIENT.NS", "TATAMOTORS.NS", "INDUSINDBK.NS", "AXISBANK.NS", "DIVISLAB.NS", "ICICIBANK.NS", "HDFC.NS", "KOTAKBANK.NS", "ITC.NS",
           "VBL.NS", "DABUR.NS", "UBL.NS", "HINDUNILVR.NS", "BRITANNIA.NS", "EMAMILTD.NS", "COLPAL.NS", "NESTLEIND.NS", "GODREJCP.NS", "MCDOWELL-N.NS",
           "MAXHEALTH.NS", "AUROPHARMA.NS", "IPCALAB.NS", "BIOCON.NS", "SYNGENE.NS", "LALPATHLAB.NS", "LAURUSLABS.NS", "METROPOLIS.NS", "TORNTPHARM.NS", "ALKEM.NS",
           "HCLTECH.NS", "COFORGE.NS", "MPHASIS.NS", "LTIM.NS", "TECHM.NS", "LTTS.NS", "TCS.NS", "WIPRO.NS", "PERSISTENT.NS", "INFY.NS",
@@ -44,13 +44,13 @@ if choice == 'Nifty50':
         st.write("These are the final selected stocks:")
         for i in sel:
             st.text(i)
-        #tickers = np.array(sel)
-        #yahoo_financials = YahooFinancials(np.array(sel))
-        #data = yahoo_financials.get_historical_price_data(start_date='2020-04-01', 
-                                                    #end_date='2023-03-31', 
-                                                    #time_interval='daily')
-        #prices_df = pd.DataFrame({a: {x['formatted_date']: x['close'] for x in data[a]['prices']} for a in tickers})
-        #st.table(prices_df.head())
+        tickers = np.array(sel)
+        yahoo_financials = YahooFinancials(np.array(sel))
+        data = yahoo_financials.get_historical_price_data(start_date='2020-04-01', 
+                                                    end_date='2023-03-31', 
+                                                    time_interval='daily')
+        prices_df = pd.DataFrame({a: {x['formatted_date']: x['close'] for x in data[a]['prices']} for a in tickers})
+        st.table(prices_df.head())
 elif choice == 'Inter-sector':
     if st.button("Show all available stocks"):
         st.write("These stocks are available for selection:")
@@ -61,13 +61,13 @@ elif choice == 'Inter-sector':
         st.write("These are the final selected stocks:")
         for i in sel:
             st.text(i)
-        #tickers = np.array(sel)
-        #yahoo_financials = YahooFinancials(np.array(sel))
-        #data = yahoo_financials.get_historical_price_data(start_date='2020-04-01', 
-                                                   # end_date='2023-03-31', 
-                                                   # time_interval='daily')
-        #prices_df = pd.DataFrame({a: {x['formatted_date']: x['close'] for x in data[a]['prices']} for a in tickers})
-        #st.table(prices_df.head())
+        tickers = np.array(sel)
+        yahoo_financials = YahooFinancials(np.array(sel))
+        data = yahoo_financials.get_historical_price_data(start_date='2020-04-01', 
+                                                    end_date='2023-03-31', 
+                                                    time_interval='daily')
+        prices_df = pd.DataFrame({a: {x['formatted_date']: x['close'] for x in data[a]['prices']} for a in tickers})
+        st.table(prices_df.head())
 else:
     sector = st.selectbox("Select sector:",["AUTO","BANKING","FINANCIAL",
                                             "FMCG","HEALTHCARE","IT",
@@ -157,10 +157,10 @@ else:
         st.write("These are the final selected stocks:")
         for i in sel:
             st.text(i)
-        #tickers = np.array(sel)
-        #yahoo_financials = YahooFinancials(np.array(sel))
-        #data = yahoo_financials.get_historical_price_data(start_date='2020-04-01', 
+        tickers = np.array(sel)
+        yahoo_financials = YahooFinancials(np.array(sel))
+        data = yahoo_financials.get_historical_price_data(start_date='2020-04-01', 
                                                    # end_date='2023-03-31', 
                                                    # time_interval='daily')
-        #prices_df = pd.DataFrame({a: {x['formatted_date']: x['close'] for x in data[a]['prices']} for a in tickers})
-        #st.table(prices_df.head())
+        prices_df = pd.DataFrame({a: {x['formatted_date']: x['close'] for x in data[a]['prices']} for a in tickers})
+        st.table(prices_df.head())
