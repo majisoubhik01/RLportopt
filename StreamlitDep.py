@@ -160,7 +160,7 @@ else:
         tickers = np.array(sel)
         yahoo_financials = YahooFinancials(np.array(sel))
         data = yahoo_financials.get_historical_price_data(start_date='2020-04-01', 
-                                                   # end_date='2023-03-31', 
-                                                   # time_interval='daily')
+                                                   end_date='2023-03-31', 
+                                                   time_interval='daily')
         prices_df = pd.DataFrame({a: {x['formatted_date']: x['close'] for x in data[a]['prices']} for a in tickers})
         st.table(prices_df.head())
