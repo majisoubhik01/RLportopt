@@ -65,8 +65,8 @@ if choice == 'Nifty50':
     amt = st.text_input('Enter amount for investment:',placeholder ="Enter amount")
     if st.button("Submit"):
         st.write("These are the recommended investments for the selected stocks:")
-        for i in sel:
-            st.text(i)
+        #for i in sel:
+            #st.text(i)
         tickers = np.array(sel)
         yahoo_financials = YahooFinancials(np.array(sel))
         data = yahoo_financials.get_historical_price_data(start_date='2020-04-01', 
@@ -212,8 +212,8 @@ if choice == 'Nifty50':
                 return portfolios
 
             portfolios = get_req_portfolios(returns)
+            portfolios.iloc[:,0] = np.round(portfolios.iloc[:,0]*int(amt),2)
             portfolios.index.names = ['Stocks']
-            portfolios.iloc[:,0] = portfolios.iloc[:,0]*int(amt)
         st.table(portfolios.iloc[:,0])        
 elif choice == 'Inter-sector':
     if st.button("Show all available stocks"):
