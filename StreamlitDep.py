@@ -212,7 +212,7 @@ if choice == 'Nifty50':
                 return portfolios
 
             portfolios = get_req_portfolios(returns)
-            portfolios['Amounts'] = portfolios['Amounts']*amt
+            portfolios.iloc[:,0] = portfolios.iloc[:,0]*amt
             portfolios.reset_index(level=0, inplace=True)
             #portfolios.index.names = ['Stocks']
         st.table(portfolios['index'])        
