@@ -212,10 +212,10 @@ if choice == 'Nifty50':
                 return portfolios
 
             portfolios = get_req_portfolios(returns)
-            #portfolios.iloc[:,1] = np.round(portfolios.iloc[:,1]*int(amt),2)
+            portfolios['Amounts'] = np.round(portfolios['Amounts']*amt,2)
             portfolios.reset_index(level=0, inplace=True)
-            portfolios.index.names = ['Stocks']
-        st.table(portfolios)        
+            #portfolios.index.names = ['Stocks']
+        st.table(portfolios['index'])        
 elif choice == 'Inter-sector':
     if st.button("Show all available stocks"):
         st.write("These stocks are available for selection:")
