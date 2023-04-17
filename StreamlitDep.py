@@ -225,8 +225,8 @@ elif choice == 'Inter-sector':
     amt = st.text_input('Enter amount for investment:',placeholder ="Enter amount")
     if st.button("Submit"):
         st.write("These are the recommended investments for the selected stocks:")
-        for i in sel:
-            st.text(i)
+        #for i in sel:
+            #st.text(i)
         tickers = np.array(sel)
         yahoo_financials = YahooFinancials(np.array(sel))
         data = yahoo_financials.get_historical_price_data(start_date='2020-04-01', 
@@ -462,8 +462,8 @@ else:
     amt = st.text_input('Enter amount for investment:',placeholder ="Enter amount")
     if st.button("Submit"):
         st.write("These are the recommended investments for the selected stocks:")
-        for i in sel:
-            st.text(i)
+        #for i in sel:
+            #st.text(i)
         tickers = np.array(sel)
         yahoo_financials = YahooFinancials(np.array(sel))
         data = yahoo_financials.get_historical_price_data(start_date='2020-04-01', 
