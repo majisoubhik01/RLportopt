@@ -28,7 +28,7 @@ import cvxopt as opt
 from cvxopt import blas, solvers
 
 
-algo = "MVP"
+algo = "HRP"
 st.set_page_config(layout="wide")
 col1, mid, col2 = st.columns([15,5,50])
 with col1:
@@ -214,7 +214,7 @@ if choice == 'Nifty50':
             portfolios = get_req_portfolios(returns)
             portfolios.iloc[:,0] = np.round(portfolios.iloc[:,0]*int(amt),2)
             portfolios.index.names = ['Stocks']
-        st.table(portfolios.iloc[:,0])        
+        st.table(portfolios)        
 elif choice == 'Inter-sector':
     if st.button("Show all available stocks"):
         st.write("These stocks are available for selection:")
