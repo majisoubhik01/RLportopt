@@ -215,7 +215,7 @@ if choice == 'Nifty50':
             portfolios.iloc[:,0] = portfolios.iloc[:,0]*int(amt)
             portfolios.reset_index(level=0, inplace=True)
             #portfolios.index.names = ['Stocks']
-        st.table(portfolios[['index','Amounts']])        
+        st.table(portfolios.hide_index())        
 elif choice == 'Inter-sector':
     if st.button("Show all available stocks"):
         st.write("These stocks are available for selection:")
