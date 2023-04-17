@@ -28,7 +28,7 @@ import cvxopt as opt
 from cvxopt import blas, solvers
 
 
-algo = "HRP"
+algo = "MVP"
 st.set_page_config(layout="wide")
 col1, mid, col2 = st.columns([15,5,50])
 with col1:
