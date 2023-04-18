@@ -124,7 +124,7 @@ if choice == 'Nifty50':
                         j = df0.values - numItems
                         sortIx[i] = link[j, 0]  # item 1
                         df0 = pd.Series(link[j, 1], index=i + 1)
-                        sortIx = sortIx.append(df0)  # item 2
+                        sortIx = pd.concat([sortIx, df0])  # item 2
                         sortIx = sortIx.sort_index()  # re-sort
                         sortIx.index = range(sortIx.shape[0])  # re-index
                     return sortIx.tolist()
@@ -394,7 +394,11 @@ elif choice == 'Inter-sector':
 
                 portfolios = get_req_portfolios(returns)
                 portfolios.index.names = ['Stocks']
-                portfolios.iloc[:,0] = portfolios.iloc[:,0]*int(amt)
+                fig, ax1 = plt.subplots(1, 1,figsize=(30,20))
+                ax1.pie(portfolios.iloc[:,0], labels= portfolios.index, autopct='%.2f', textprops={'fontsize': 20});
+                ax1.set_title('Portfolio Allocations',fontsize = 30)
+                st.pyplot(fig)
+                #portfolios.iloc[:,0] = portfolios.iloc[:,0]
             st.table(portfolios.iloc[:,0])
 else:
     sector = st.selectbox("Select sector:",["AUTO","BANKING","FINANCIAL",
@@ -635,7 +639,11 @@ else:
 
                 portfolios = get_req_portfolios(returns)
                 portfolios.index.names = ['Stocks']
-                portfolios.iloc[:,0] = portfolios.iloc[:,0]*int(amt)
+                fig, ax1 = plt.subplots(1, 1,figsize=(30,20))
+                ax1.pie(portfolios.iloc[:,0], labels= portfolios.index, autopct='%.2f', textprops={'fontsize': 20});
+                ax1.set_title('Portfolio Allocations',fontsize = 30)
+                st.pyplot(fig)
+                #portfolios.iloc[:,0] = portfolios.iloc[:,0]*int(amt)
             st.table(portfolios)
 
 
