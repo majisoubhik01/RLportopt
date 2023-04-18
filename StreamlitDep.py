@@ -61,7 +61,7 @@ if choice == 'Nifty50':
         st.write("These are stocks in Nifty50:")
         for i in n50stocks:
             st.text(i)
-    sel = st.multiselect("Select stocks from the list(Click on 'Show stocks' above for the list):",n50stocks,n50stocks[0])
+    sel = st.multiselect("Select stocks from the list(Click on 'Show stocks' above for the list):",n50stocks,n50stocks[[0,1]])
     amt = st.text_input('Enter amount for investment:',placeholder ="Enter amount")
     if st.button("Submit"):
         st.write("These are the recommended investments for the selected stocks:")
