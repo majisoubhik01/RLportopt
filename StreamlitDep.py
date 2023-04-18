@@ -636,6 +636,6 @@ else:
                 portfolios = get_req_portfolios(returns)
                 portfolios.index.names = ['Stocks']
                 portfolios.iloc[:,0] = portfolios.iloc[:,0]*int(amt)
-            st.table(portfolios.iloc[:,0])
+            st.table(portfolios)
 
 
