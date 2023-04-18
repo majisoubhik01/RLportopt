@@ -246,8 +246,13 @@ if choice == 'Nifty50':
                 fig, ax1 = plt.subplots(1, 1,figsize=(20,20))
                 ax1.pie(portfolios[Results_oos['sharp_ratio_oos'].idxmax()], labels= portfolios.index, autopct='%.2f', textprops={'fontsize': 20});
                 ax1.set_title('Portfolio Allocations',fontsize = 30)
-                st.pyplot(fig)
-            st.table(portfolios[Results_oos['sharp_ratio_oos'].idxmax()])        
+                col1, mid, col2 = st.columns([15,5,50])
+                with col1:
+                    st.pyplot(fig)
+                with col2:
+                    st.table(portfolios[Results_oos['sharp_ratio_oos'].idxmax()]) 
+                
+            #st.table(portfolios[Results_oos['sharp_ratio_oos'].idxmax()])        
 elif choice == 'Inter-sector':
     if st.button("Show all available stocks"):
         st.write("These stocks are available for selection:")
