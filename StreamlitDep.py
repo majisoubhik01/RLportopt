@@ -61,15 +61,12 @@ if choice == 'Nifty50':
         for i in n50stocks:
             st.text(i)
     sel = st.multiselect("Select stocks from the list(Click on 'Show stocks' above for the list):",n50stocks,n50stocks[0],max_selections=10)
-    #st.write(len(sel))
     amt = st.number_input('Enter amount for investment:',value=1000,step=500)
     if st.button("Submit"):
         if len(sel) == 0 or len(sel) == 1:
             st.write(f"You have selected {len(sel)} stock(s). Please enter at least two stocks.")
         else:
             st.write("These are the recommended investments for the selected stocks:")
-            #for i in sel:
-                #st.text(i)
             tickers = np.array(sel)
             yahoo_financials = YahooFinancials(np.array(sel))
             data = yahoo_financials.get_historical_price_data(start_date='2021-04-01', 
@@ -81,30 +78,18 @@ if choice == 'Nifty50':
                                                         time_interval='daily')
             test_df = pd.DataFrame({a: {x['formatted_date']: x['close'] for x in test_data[a]['prices']} for a in tickers})
             returns_test = test_df.pct_change().dropna()
-            #st.table(prices_df.head())
             with st.spinner("Getting results..."):
                 dataset = prices_df.copy()
-
-                #dataset = pd.read_csv("autoret.csv")
                 missing_fractions = dataset.isnull().mean().sort_values(ascending=False)
-
                 missing_fractions.head(10)
-
                 drop_list = sorted(list(missing_fractions[missing_fractions > 0.3].index))
-
                 dataset.drop(labels=drop_list, axis=1, inplace=True)
-
                 dataset=dataset.fillna(method='ffill')
-
                 X = dataset.copy()
                 row= len(X)
                 train_len = int(row*.8)
-                #train_len = int(row*.8846)
-
                 X_train = dataset.head(train_len)
-
                 X_test = dataset.tail(row-train_len)
-
                 returns =  X_train.pct_change().dropna() #pd.read_csv("autoret.csv") #X_train.pct_change().dropna()
                 returns_test =  X_test.pct_change().dropna() #pd.read_csv("autoret_test.csv") #X_test.pct_change().dropna()
                 def correlDist(corr):
@@ -199,34 +184,18 @@ if choice == 'Nifty50':
                     # Construct a hierarchical portfolio
                     dist = correlDist(corr)
                     link = sch.linkage(dist, 'single')
-                    #plt.figure(figsize=(20, 10))
-                    #dn = sch.dendrogram(link, labels=cov.index.values)
-                    #plt.show()
                     sortIx = getQuasiDiag(link)
                     sortIx = corr.index[sortIx].tolist()
                     hrp = getRecBipart(cov, sortIx)
                     return hrp.sort_index()
 
                 def get_req_portfolios(returns):
-                    '''
-                    cov, corr = returns.cov(), returns.corr()
-                    if algo == 'HRP':
-                        hrp = round(getHRP(cov, corr),2)
-                        portfolios = pd.DataFrame([hrp], index=['Amounts']).T
-                    else:
-                        mvp = getMVP(cov)
-                        mvp = pd.Series(mvp, index=cov.index)
-                        portfolios = pd.DataFrame([round(mvp,2)], index=['Amounts']).T
-                    #portfolios = pd.DataFrame([ivp, hrp], index=['IVP', 'HRP']).T
-                    return portfolios
-                    '''
                     cov, corr = returns.cov(), returns.corr()
                     hrp = round(getHRP(cov, corr),2)
                     hrp = pd.Series(hrp, index=cov.index)
                     mvp = getMVP(cov)
                     mvp = pd.Series(mvp, index=cov.index)
                     portfolios = pd.DataFrame([round(mvp,2), hrp], index=['MVP', 'HRP']).T
-                    #portfolios = pd.DataFrame([ivp, hrp], index=['IVP', 'HRP']).T
                     return portfolios
                 portfolios = get_req_portfolios(returns)
                 portfolios.index.names = ['Stocks']
@@ -235,10 +204,6 @@ if choice == 'Nifty50':
                 stddev_oos = OutOfSample_Result.std() * np.sqrt(252)
                 sharp_ratio_oos = (OutOfSample_Result.mean()*np.sqrt(252))/(OutOfSample_Result).std()
                 Results_oos = pd.DataFrame(dict(stdev_oos=stddev_oos, sharp_ratio_oos = sharp_ratio_oos))
-                #st.table(Results_oos)
-                #st.text(Results_oos.loc[Results_oos['sharp_ratio_oos'] == Results_oos['sharp_ratio_oos'].max()])
-                #st.text(Results_oos['sharp_ratio_oos'].idxmax())
-                #st.write(Results_oos['sharp_ratio_oos'].idxmax())
                 if Results_oos['sharp_ratio_oos'].idxmax() == "MVP":
                     portfolios.iloc[:,0] = portfolios.iloc[:,0]*int(amt)
                 else:
@@ -252,8 +217,7 @@ if choice == 'Nifty50':
                     st.image('portfolio.png',width=700)
                 with col2:
                     st.table(portfolios[Results_oos['sharp_ratio_oos'].idxmax()]) 
-                
-            #st.table(portfolios[Results_oos['sharp_ratio_oos'].idxmax()])        
+     
 elif choice == 'Inter-sector':
     if st.button("Show all available stocks"):
         st.write("These stocks are available for selection:")
@@ -266,8 +230,6 @@ elif choice == 'Inter-sector':
             st.write(f"You have selected {len(sel)} stock(s). Please enter at least two stocks.")
         else:
             st.write("These are the recommended investments for the selected stocks:")
-            #for i in sel:
-                #st.text(i)
             tickers = np.array(sel)
             yahoo_financials = YahooFinancials(np.array(sel))
             data = yahoo_financials.get_historical_price_data(start_date='2021-04-01', 
@@ -279,32 +241,20 @@ elif choice == 'Inter-sector':
                                                         time_interval='daily')
             test_df = pd.DataFrame({a: {x['formatted_date']: x['close'] for x in test_data[a]['prices']} for a in tickers})
             returns_test = test_df.pct_change().dropna()
-            #st.table(prices_df.head())
             with st.spinner("Getting results..."):
                 dataset = prices_df.copy()
-
-                #dataset = pd.read_csv("autoret.csv")
                 missing_fractions = dataset.isnull().mean().sort_values(ascending=False)
-
                 missing_fractions.head(10)
-
                 drop_list = sorted(list(missing_fractions[missing_fractions > 0.3].index))
-
                 dataset.drop(labels=drop_list, axis=1, inplace=True)
-
                 dataset=dataset.fillna(method='ffill')
-
                 X = dataset.copy()
                 row= len(X)
                 train_len = int(row*.8)
-                #train_len = int(row*.8846)
-
                 X_train = dataset.head(train_len)
-
                 X_test = dataset.tail(row-train_len)
-
-                returns =  X_train.pct_change().dropna() #pd.read_csv("autoret.csv") #X_train.pct_change().dropna()
-                returns_test =  X_test.pct_change().dropna() #pd.read_csv("autoret_test.csv") #X_test.pct_change().dropna()
+                returns =  X_train.pct_change().dropna()
+                returns_test =  X_test.pct_change().dropna() 
                 def correlDist(corr):
                 # A distance matrix based on correlation, where 0<=d[i,j]<=1
                 # This is a proper distance metric
@@ -397,27 +347,12 @@ elif choice == 'Inter-sector':
                     # Construct a hierarchical portfolio
                     dist = correlDist(corr)
                     link = sch.linkage(dist, 'single')
-                    #plt.figure(figsize=(20, 10))
-                    #dn = sch.dendrogram(link, labels=cov.index.values)
-                    #plt.show()
                     sortIx = getQuasiDiag(link)
                     sortIx = corr.index[sortIx].tolist()
                     hrp = getRecBipart(cov, sortIx)
                     return hrp.sort_index()
 
                 def get_req_portfolios(returns):
-                    '''
-                    cov, corr = returns.cov(), returns.corr()
-                    if algo == 'HRP':
-                        hrp = round(getHRP(cov, corr),2)
-                        portfolios = pd.DataFrame([hrp], index=['Amounts']).T
-                    else:
-                        mvp = getMVP(cov)
-                        mvp = pd.Series(mvp, index=cov.index)
-                        portfolios = pd.DataFrame([round(mvp,2)], index=['Amounts']).T
-                    #portfolios = pd.DataFrame([ivp, hrp], index=['IVP', 'HRP']).T
-                    return portfolios
-                    '''
                     cov, corr = returns.cov(), returns.corr()
                     #if algo == 'HRP':
                     hrp = round(getHRP(cov, corr),2)
@@ -436,10 +371,6 @@ elif choice == 'Inter-sector':
                 stddev_oos = OutOfSample_Result.std() * np.sqrt(252)
                 sharp_ratio_oos = (OutOfSample_Result.mean()*np.sqrt(252))/(OutOfSample_Result).std()
                 Results_oos = pd.DataFrame(dict(stdev_oos=stddev_oos, sharp_ratio_oos = sharp_ratio_oos))
-                #st.table(Results_oos)
-                #st.text(Results_oos.loc[Results_oos['sharp_ratio_oos'] == Results_oos['sharp_ratio_oos'].max()])
-                #st.text(Results_oos['sharp_ratio_oos'].idxmax())
-                #st.write(Results_oos['sharp_ratio_oos'].idxmax())
                 if Results_oos['sharp_ratio_oos'].idxmax() == "MVP":
                     portfolios.iloc[:,0] = portfolios.iloc[:,0]*int(amt)
                 else:
@@ -543,8 +474,6 @@ else:
             st.write(f"You have selected {len(sel)} stock(s). Please enter at least two stocks.")
         else:
             st.write("These are the recommended investments for the selected stocks:")
-            #for i in sel:
-                #st.text(i)
             tickers = np.array(sel)
             yahoo_financials = YahooFinancials(np.array(sel))
             data = yahoo_financials.get_historical_price_data(start_date='2021-04-01', 
@@ -556,30 +485,18 @@ else:
                                                         time_interval='daily')
             test_df = pd.DataFrame({a: {x['formatted_date']: x['close'] for x in test_data[a]['prices']} for a in tickers})
             returns_test = test_df.pct_change().dropna()
-            #st.table(prices_df.head())
             with st.spinner("Getting results..."):
                 dataset = prices_df.copy()
-
-                #dataset = pd.read_csv("autoret.csv")
                 missing_fractions = dataset.isnull().mean().sort_values(ascending=False)
-
                 missing_fractions.head(10)
-
                 drop_list = sorted(list(missing_fractions[missing_fractions > 0.3].index))
-
                 dataset.drop(labels=drop_list, axis=1, inplace=True)
-
                 dataset=dataset.fillna(method='ffill')
-
                 X = dataset.copy()
                 row= len(X)
                 train_len = int(row*.8)
-                #train_len = int(row*.8846)
-
                 X_train = dataset.head(train_len)
-
                 X_test = dataset.tail(row-train_len)
-
                 returns =  X_train.pct_change().dropna() #pd.read_csv("autoret.csv") #X_train.pct_change().dropna()
                 returns_test =  X_test.pct_change().dropna() #pd.read_csv("autoret_test.csv") #X_test.pct_change().dropna()
                 def correlDist(corr):
@@ -674,9 +591,6 @@ else:
                     # Construct a hierarchical portfolio
                     dist = correlDist(corr)
                     link = sch.linkage(dist, 'single')
-                    #plt.figure(figsize=(20, 10))
-                    #dn = sch.dendrogram(link, labels=cov.index.values)
-                    #plt.show()
                     sortIx = getQuasiDiag(link)
                     sortIx = corr.index[sortIx].tolist()
                     hrp = getRecBipart(cov, sortIx)
@@ -684,14 +598,10 @@ else:
 
                 def get_req_portfolios(returns):
                     cov, corr = returns.cov(), returns.corr()
-                    #if algo == 'HRP':
                     hrp = round(getHRP(cov, corr),2)
                     hrp = pd.Series(hrp, index=cov.index)
-                       # portfolios = pd.DataFrame([hrp], index=['Amounts']).T
-                    #else:
                     mvp = getMVP(cov)
                     mvp = pd.Series(mvp, index=cov.index)
-                        #portfolios = pd.DataFrame([round(mvp,2)], index=['Amounts']).T
                     portfolios = pd.DataFrame([mvp, hrp], index=['MVP', 'HRP']).T
                     return portfolios
 
@@ -702,10 +612,6 @@ else:
                 stddev_oos = OutOfSample_Result.std() * np.sqrt(252)
                 sharp_ratio_oos = (OutOfSample_Result.mean()*np.sqrt(252))/(OutOfSample_Result).std()
                 Results_oos = pd.DataFrame(dict(stdev_oos=stddev_oos, sharp_ratio_oos = sharp_ratio_oos))
-                #st.table(Results_oos)
-                #st.text(Results_oos.loc[Results_oos['sharp_ratio_oos'] == Results_oos['sharp_ratio_oos'].max()])
-                #st.text(Results_oos['sharp_ratio_oos'].idxmax())
-                #st.write(Results_oos['sharp_ratio_oos'].idxmax())
                 if Results_oos['sharp_ratio_oos'].idxmax() == "MVP":
                     portfolios.iloc[:,0] = portfolios.iloc[:,0]*int(amt)
                 else:
