@@ -412,7 +412,7 @@ elif choice == 'Inter-sector':
                 portfolios = get_req_portfolios(returns)
                 portfolios.index.names = ['Stocks']
                 OutOfSample_Result=pd.DataFrame(np.dot(returns_test,np.array(portfolios)),
-                                                columns=['CLA', 'HRP'], index = returns_test.index)
+                                                columns=['MVP', 'HRP'], index = returns_test.index)
                 stddev_oos = OutOfSample_Result.std() * np.sqrt(252)
                 sharp_ratio_oos = (OutOfSample_Result.mean()*np.sqrt(252))/(OutOfSample_Result).std()
                 Results_oos = pd.DataFrame(dict(stdev_oos=stddev_oos, sharp_ratio_oos = sharp_ratio_oos))
@@ -424,7 +424,10 @@ elif choice == 'Inter-sector':
                 ax1.pie(portfolios.iloc[:,0], labels= portfolios.index, autopct='%.2f', textprops={'fontsize': 20});
                 ax1.set_title('Portfolio Allocations',fontsize = 30)
                 st.pyplot(fig)
-                portfolios.loc[:,Results_oos['sharp_ratio_oos'].idxmax()] = portfolios.loc[:,Results_oos['sharp_ratio_oos'].idxmax()]*amt
+                if Results_oos['sharp_ratio_oos'].idxmax() == "MVP":
+                    portfolios.iloc[:,0] = portfolios.iloc[:,0]*amt
+                else:
+                    portfolios.iloc[:,1] = portfolios.iloc[:,1]*amt
             st.table(portfolios[Results_oos['sharp_ratio_oos'].idxmax()])
 else:
     sector = st.selectbox("Select sector:",["AUTO","BANKING","FINANCIAL",
