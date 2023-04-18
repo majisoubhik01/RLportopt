@@ -425,9 +425,9 @@ elif choice == 'Inter-sector':
                 ax1.set_title('Portfolio Allocations',fontsize = 30)
                 st.pyplot(fig)
                 if Results_oos['sharp_ratio_oos'].idxmax() == "MVP":
-                    portfolios.iloc[:,0] = portfolios.iloc[:,0]*amt
+                    portfolios.iloc[:,0] = portfolios.iloc[:,0]*int(amt)
                 else:
-                    portfolios.iloc[:,1] = portfolios.iloc[:,1]*amt
+                    portfolios.iloc[:,1] = portfolios.iloc[:,1]*int(amt)
             st.table(portfolios[Results_oos['sharp_ratio_oos'].idxmax()])
 else:
     sector = st.selectbox("Select sector:",["AUTO","BANKING","FINANCIAL",
