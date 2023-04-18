@@ -248,7 +248,7 @@ if choice == 'Nifty50':
                 ax1.set_title('Portfolio Allocations',fontsize = 30)
                 col1, mid, col2 = st.columns([15,5,50])
                 with col1:
-                    st.pyplot(fig)
+                    #st.pyplot(fig)
                 with col2:
                     st.table(portfolios[Results_oos['sharp_ratio_oos'].idxmax()]) 
                 
