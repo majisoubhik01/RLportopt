@@ -62,7 +62,7 @@ if choice == 'Nifty50':
             st.text(i)
     sel = st.multiselect("Select stocks from the list(Click on 'Show stocks' above for the list):",n50stocks,n50stocks[0],max_selections=10)
     #st.write(len(sel))
-    amt = st.text_input('Enter amount for investment:',placeholder ="Enter amount")
+    amt = st.number_input('Enter amount for investment:',value=1000)
     if st.button("Submit"):
         if len(sel) == 0 or len(sel) == 1:
             st.write(f"You have selected {len(sel)} stock. Please enter at least two stocks")
@@ -224,23 +224,32 @@ if choice == 'Nifty50':
                     #portfolios = pd.DataFrame([ivp, hrp], index=['IVP', 'HRP']).T
                     return portfolios
                 portfolios = get_req_portfolios(returns)
+                portfolios.index.names = ['Stocks']
+                OutOfSample_Result=pd.DataFrame(np.dot(returns_test,np.array(portfolios)),
+                                                columns=['MVP', 'HRP'], index = returns_test.index)
+                stddev_oos = OutOfSample_Result.std() * np.sqrt(252)
+                sharp_ratio_oos = (OutOfSample_Result.mean()*np.sqrt(252))/(OutOfSample_Result).std()
+                Results_oos = pd.DataFrame(dict(stdev_oos=stddev_oos, sharp_ratio_oos = sharp_ratio_oos))
+                #st.table(Results_oos)
+                #st.text(Results_oos.loc[Results_oos['sharp_ratio_oos'] == Results_oos['sharp_ratio_oos'].max()])
+                #st.text(Results_oos['sharp_ratio_oos'].idxmax())
+                #st.write(Results_oos['sharp_ratio_oos'].idxmax())
+                if Results_oos['sharp_ratio_oos'].idxmax() == "MVP":
+                    portfolios.iloc[:,0] = portfolios.iloc[:,0]*int(amt)
+                else:
+                    portfolios.iloc[:,1] = portfolios.iloc[:,1]*int(amt)
                 fig, ax1 = plt.subplots(1, 1,figsize=(30,20))
-                ax1.pie(portfolios.iloc[:,0], labels= portfolios.index, autopct='%.2f', textprops={'fontsize': 20});
+                ax1.pie(portfolios[Results_oos['sharp_ratio_oos'].idxmax()], labels= portfolios.index, autopct='%.2f', textprops={'fontsize': 20});
                 ax1.set_title('Portfolio Allocations',fontsize = 30)
                 st.pyplot(fig)
-                #ax2.pie(portfolios.iloc[:,1], labels=portfolios.index, autopct='%.2f', textprops={'fontsize': 20});
-                #ax2.set_title('HRP',fontsize = 30)
-                #portfolios.iloc[:,0] = portfolios.iloc[:,0]*int(amt)
-                #portfolios.reset_index(level=0, inplace=True)
-                #portfolios.rename(columns = {'index':'Stocks'}, inplace = True)
-            st.table(portfolios)        
+            st.table(portfolios[Results_oos['sharp_ratio_oos'].idxmax()])        
 elif choice == 'Inter-sector':
     if st.button("Show all available stocks"):
         st.write("These stocks are available for selection:")
         for i in stocks:
             st.text(i)
     sel = st.multiselect("Choose relevant stocks from the list(Click on 'Show stocks' above for the list):",stocks,stocks[0],max_selections=10)
-    amt = st.text_input('Enter amount for investment:',placeholder ="Enter amount")
+    amt = st.number_input('Enter amount for investment:',value=1000)
     if st.button("Submit"):
         if len(sel) == 0 or len(sel) == 1:
             st.write(f"You have selected {sel} stock. Please enter at least two stocks")
@@ -513,7 +522,7 @@ else:
             sel = stocks[70:80]
         else:
             sel = st.multiselect("Select stocks in REALTY sector:",stocks[70:80],stocks[70])
-    amt = st.text_input('Enter amount for investment:',placeholder ="Enter amount")
+    amt = st.number_input('Enter amount for investment:',value=1000)
     if st.button("Submit"):
         if len(sel) == 0 or len(sel) == 1:
             st.write(f"You have selected {sel} stock. Please enter at least two stocks")
@@ -668,11 +677,23 @@ else:
 
                 portfolios = get_req_portfolios(returns)
                 portfolios.index.names = ['Stocks']
+                OutOfSample_Result=pd.DataFrame(np.dot(returns_test,np.array(portfolios)),
+                                                columns=['MVP', 'HRP'], index = returns_test.index)
+                stddev_oos = OutOfSample_Result.std() * np.sqrt(252)
+                sharp_ratio_oos = (OutOfSample_Result.mean()*np.sqrt(252))/(OutOfSample_Result).std()
+                Results_oos = pd.DataFrame(dict(stdev_oos=stddev_oos, sharp_ratio_oos = sharp_ratio_oos))
+                #st.table(Results_oos)
+                #st.text(Results_oos.loc[Results_oos['sharp_ratio_oos'] == Results_oos['sharp_ratio_oos'].max()])
+                #st.text(Results_oos['sharp_ratio_oos'].idxmax())
+                #st.write(Results_oos['sharp_ratio_oos'].idxmax())
+                if Results_oos['sharp_ratio_oos'].idxmax() == "MVP":
+                    portfolios.iloc[:,0] = portfolios.iloc[:,0]*int(amt)
+                else:
+                    portfolios.iloc[:,1] = portfolios.iloc[:,1]*int(amt)
                 fig, ax1 = plt.subplots(1, 1,figsize=(30,20))
-                ax1.pie(portfolios.iloc[:,0], labels= portfolios.index, autopct='%.2f', textprops={'fontsize': 20});
+                ax1.pie(portfolios[Results_oos['sharp_ratio_oos'].idxmax()], labels= portfolios.index, autopct='%.2f', textprops={'fontsize': 20});
                 ax1.set_title('Portfolio Allocations',fontsize = 30)
                 st.pyplot(fig)
-                #portfolios.iloc[:,0] = portfolios.iloc[:,0]*int(amt)
-            st.table(portfolios)
+            st.table(portfolios[Results_oos['sharp_ratio_oos'].idxmax()])
 
 
