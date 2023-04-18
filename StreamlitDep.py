@@ -62,7 +62,7 @@ if choice == 'Nifty50':
             st.text(i)
     sel = st.multiselect("Select stocks from the list(Click on 'Show stocks' above for the list):",n50stocks,n50stocks[0],max_selections=10)
     #st.write(len(sel))
-    amt = st.number_input('Enter amount for investment:',value=1000)
+    amt = st.number_input('Enter amount for investment:',value=1000,step=500)
     if st.button("Submit"):
         if len(sel) == 0 or len(sel) == 1:
             st.write(f"You have selected {len(sel)} stock(s). Please enter at least two stocks.")
@@ -254,7 +254,7 @@ elif choice == 'Inter-sector':
         for i in stocks:
             st.text(i)
     sel = st.multiselect("Choose relevant stocks from the list(Click on 'Show stocks' above for the list):",stocks,stocks[0],max_selections=10)
-    amt = st.number_input('Enter amount for investment:',value=1000)
+    amt = st.number_input('Enter amount for investment:',value=1000,step=500)
     if st.button("Submit"):
         if len(sel) == 0 or len(sel) == 1:
             st.write(f"You have selected {len(sel)} stock(s). Please enter at least two stocks.")
@@ -527,7 +527,7 @@ else:
             sel = stocks[70:80]
         else:
             sel = st.multiselect("Select stocks in REALTY sector:",stocks[70:80],stocks[70])
-    amt = st.number_input('Enter amount for investment:',value=1000)
+    amt = st.number_input('Enter amount for investment:',value=1000,step=500)
     if st.button("Submit"):
         if len(sel) == 0 or len(sel) == 1:
             st.write(f"You have selected {len(sel)} stock(s). Please enter at least two stocks.")
