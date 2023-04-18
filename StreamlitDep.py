@@ -246,10 +246,10 @@ if choice == 'Nifty50':
                 fig, ax1 = plt.subplots(1, 1,figsize=(20,20))
                 ax1.pie(portfolios[Results_oos['sharp_ratio_oos'].idxmax()], labels= portfolios.index, autopct='%.2f', textprops={'fontsize': 20});
                 ax1.set_title('Portfolio Allocations',fontsize = 30)
-                col1, mid, col2 = st.columns([15,5,50])
+                col1, mid, col2 = st.columns([25,5,40])
+                plt.savefig("portfolio.png")
                 with col1:
-                    #st.pyplot(fig)
-                    st.text("Yay! You are in the right place!")
+                    st.image('portfolio.png',width=300)
                 with col2:
                     st.table(portfolios[Results_oos['sharp_ratio_oos'].idxmax()]) 
                 
@@ -447,8 +447,12 @@ elif choice == 'Inter-sector':
                 fig, ax1 = plt.subplots(1, 1,figsize=(20,20))
                 ax1.pie(portfolios[Results_oos['sharp_ratio_oos'].idxmax()], labels= portfolios.index, autopct='%.2f', textprops={'fontsize': 20});
                 ax1.set_title('Portfolio Allocations',fontsize = 30)
-                st.pyplot(fig)
-                st.table(portfolios[Results_oos['sharp_ratio_oos'].idxmax()])
+                col1, mid, col2 = st.columns([25,5,40])
+                plt.savefig("portfolio.png")
+                with col1:
+                    st.image('portfolio.png',width=300)
+                with col2:
+                    st.table(portfolios[Results_oos['sharp_ratio_oos'].idxmax()]) 
 else:
     sector = st.selectbox("Select sector:",["AUTO","BANKING","FINANCIAL",
                                             "FMCG","HEALTHCARE","IT",
@@ -709,7 +713,11 @@ else:
                 fig, ax1 = plt.subplots(1, 1,figsize=(20,20))
                 ax1.pie(portfolios[Results_oos['sharp_ratio_oos'].idxmax()], labels= portfolios.index, autopct='%.2f', textprops={'fontsize': 20});
                 ax1.set_title('Portfolio Allocations',fontsize = 30)
-                st.pyplot(fig)
-                st.table(portfolios[Results_oos['sharp_ratio_oos'].idxmax()])
+                col1, mid, col2 = st.columns([25,5,40])
+                plt.savefig("portfolio.png")
+                with col1:
+                    st.image('portfolio.png',width=300)
+                with col2:
+                    st.table(portfolios[Results_oos['sharp_ratio_oos'].idxmax()]) 
 
 
