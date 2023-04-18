@@ -302,7 +302,7 @@ elif choice == 'Inter-sector':
                         j = df0.values - numItems
                         sortIx[i] = link[j, 0]  # item 1
                         df0 = pd.Series(link[j, 1], index=i + 1)
-                        sortIx = sortIx.append(df0)  # item 2
+                        sortIx = pd.concat([sortIx, df0])  # item 2
                         sortIx = sortIx.sort_index()  # re-sort
                         sortIx.index = range(sortIx.shape[0])  # re-index
                     return sortIx.tolist()
