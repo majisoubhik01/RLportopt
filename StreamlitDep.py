@@ -73,9 +73,14 @@ if choice == 'Nifty50':
             tickers = np.array(sel)
             yahoo_financials = YahooFinancials(np.array(sel))
             data = yahoo_financials.get_historical_price_data(start_date='2021-04-01', 
-                                                        end_date='2023-03-31', 
+                                                        end_date='2022-12-31', 
                                                         time_interval='daily')
             prices_df = pd.DataFrame({a: {x['formatted_date']: x['close'] for x in data[a]['prices']} for a in tickers})
+            test_data = yahoo_financials.get_historical_price_data(start_date='2023-01-01', 
+                                                        end_date='2023-03-31', 
+                                                        time_interval='daily')
+            test_df = pd.DataFrame({a: {x['formatted_date']: x['close'] for x in test_data[a]['prices']} for a in tickers})
+            returns_test = test_df.pct_change().dropna()
             #st.table(prices_df.head())
             with st.spinner("Getting results..."):
                 dataset = prices_df.copy()
@@ -532,10 +537,15 @@ else:
                 #st.text(i)
             tickers = np.array(sel)
             yahoo_financials = YahooFinancials(np.array(sel))
-            data = yahoo_financials.get_historical_price_data(start_date='2020-04-01', 
-                                                    end_date='2023-03-31', 
-                                                    time_interval='daily')
+            data = yahoo_financials.get_historical_price_data(start_date='2021-04-01', 
+                                                        end_date='2022-12-31', 
+                                                        time_interval='daily')
             prices_df = pd.DataFrame({a: {x['formatted_date']: x['close'] for x in data[a]['prices']} for a in tickers})
+            test_data = yahoo_financials.get_historical_price_data(start_date='2023-01-01', 
+                                                        end_date='2023-03-31', 
+                                                        time_interval='daily')
+            test_df = pd.DataFrame({a: {x['formatted_date']: x['close'] for x in test_data[a]['prices']} for a in tickers})
+            returns_test = test_df.pct_change().dropna()
             #st.table(prices_df.head())
             with st.spinner("Getting results..."):
                 dataset = prices_df.copy()
