@@ -60,7 +60,7 @@ if choice == 'Nifty50':
         st.write("These are stocks in Nifty50:")
         for i in n50stocks:
             st.text(i)
-    sel = st.multiselect("Select stocks from the list(Click on 'Show stocks' above for the list):",n50stocks,n50stocks[0])
+    sel = st.multiselect("Select stocks from the list(Click on 'Show stocks' above for the list):",n50stocks,n50stocks[0],max_selections=10)
     #st.write(len(sel))
     amt = st.text_input('Enter amount for investment:',placeholder ="Enter amount")
     if st.button("Submit"):
@@ -224,7 +224,7 @@ elif choice == 'Inter-sector':
         st.write("These stocks are available for selection:")
         for i in stocks:
             st.text(i)
-    sel = st.multiselect("Choose relevant stocks from the list(Click on 'Show stocks' above for the list):",stocks,stocks[0])
+    sel = st.multiselect("Choose relevant stocks from the list(Click on 'Show stocks' above for the list):",stocks,stocks[0],max_selections=10)
     amt = st.text_input('Enter amount for investment:',placeholder ="Enter amount")
     if st.button("Submit"):
         if len(sel) == 0 or len(sel) == 1:
