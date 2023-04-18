@@ -251,9 +251,14 @@ elif choice == 'Inter-sector':
             tickers = np.array(sel)
             yahoo_financials = YahooFinancials(np.array(sel))
             data = yahoo_financials.get_historical_price_data(start_date='2021-04-01', 
-                                                        end_date='2023-03-31', 
+                                                        end_date='2022-12-31', 
                                                         time_interval='daily')
             prices_df = pd.DataFrame({a: {x['formatted_date']: x['close'] for x in data[a]['prices']} for a in tickers})
+            test_data = yahoo_financials.get_historical_price_data(start_date='2023-01-01', 
+                                                        end_date='2023-03-31', 
+                                                        time_interval='daily')
+            test_df = pd.DataFrame({a: {x['formatted_date']: x['close'] for x in test_data[a]['prices']} for a in tickers})
+            returns_test = test_df.pct_change().dropna()
             #st.table(prices_df.head())
             with st.spinner("Getting results..."):
                 dataset = prices_df.copy()
@@ -391,15 +396,20 @@ elif choice == 'Inter-sector':
                         portfolios = pd.DataFrame([round(mvp,2)], index=['Amounts']).T
                     #portfolios = pd.DataFrame([ivp, hrp], index=['IVP', 'HRP']).T
                     return portfolios
-
                 portfolios = get_req_portfolios(returns)
                 portfolios.index.names = ['Stocks']
+                OutOfSample_Result=pd.DataFrame(np.dot(returns_test,np.array(portfolios)),
+                                                columns=['CLA', 'HRP'], index = returns_test.index)
+                stddev_oos = OutOfSample_Result.std() * np.sqrt(252)
+                sharp_ratio_oos = (OutOfSample_Result.mean()*np.sqrt(252))/(OutOfSample_Result).std()
+                Results_oos = pd.DataFrame(dict(stdev_oos=stddev_oos, sharp_ratio_oos = sharp_ratio_oos))
+                st.table(Results_oos)
                 fig, ax1 = plt.subplots(1, 1,figsize=(30,20))
                 ax1.pie(portfolios.iloc[:,0], labels= portfolios.index, autopct='%.2f', textprops={'fontsize': 20});
                 ax1.set_title('Portfolio Allocations',fontsize = 30)
                 st.pyplot(fig)
                 #portfolios.iloc[:,0] = portfolios.iloc[:,0]
-            st.table(portfolios.iloc[:,0])
+            st.table(portfolios['MVP'])
 else:
     sector = st.selectbox("Select sector:",["AUTO","BANKING","FINANCIAL",
                                             "FMCG","HEALTHCARE","IT",
