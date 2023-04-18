@@ -72,7 +72,7 @@ if choice == 'Nifty50':
                 #st.text(i)
             tickers = np.array(sel)
             yahoo_financials = YahooFinancials(np.array(sel))
-            data = yahoo_financials.get_historical_price_data(start_date='2020-04-01', 
+            data = yahoo_financials.get_historical_price_data(start_date='2021-04-01', 
                                                         end_date='2023-03-31', 
                                                         time_interval='daily')
             prices_df = pd.DataFrame({a: {x['formatted_date']: x['close'] for x in data[a]['prices']} for a in tickers})
@@ -203,6 +203,7 @@ if choice == 'Nifty50':
                     return hrp.sort_index()
 
                 def get_req_portfolios(returns):
+                    '''
                     cov, corr = returns.cov(), returns.corr()
                     if algo == 'HRP':
                         hrp = round(getHRP(cov, corr),2)
@@ -213,7 +214,14 @@ if choice == 'Nifty50':
                         portfolios = pd.DataFrame([round(mvp,2)], index=['Amounts']).T
                     #portfolios = pd.DataFrame([ivp, hrp], index=['IVP', 'HRP']).T
                     return portfolios
-
+                    '''
+                    cov, corr = returns.cov(), returns.corr()
+                    hrp = round(getHRP(cov, corr),2)
+                    mvp = getMVP(cov)
+                    mvp = pd.Series(mvp, index=cov.index)
+                    portfolios = pd.DataFrame([round(mvp,2), hrp], index=['CLA', 'HRP']).T
+                    #portfolios = pd.DataFrame([ivp, hrp], index=['IVP', 'HRP']).T
+                    return portfolios
                 portfolios = get_req_portfolios(returns)
                 fig, ax1 = plt.subplots(1, 1,figsize=(30,20))
                 ax1.pie(portfolios.iloc[:,0], labels= portfolios.index, autopct='%.2f', textprops={'fontsize': 20});
@@ -221,10 +229,10 @@ if choice == 'Nifty50':
                 st.pyplot(fig)
                 #ax2.pie(portfolios.iloc[:,1], labels=portfolios.index, autopct='%.2f', textprops={'fontsize': 20});
                 #ax2.set_title('HRP',fontsize = 30)
-                portfolios.iloc[:,0] = portfolios.iloc[:,0]*int(amt)
+                #portfolios.iloc[:,0] = portfolios.iloc[:,0]*int(amt)
                 #portfolios.reset_index(level=0, inplace=True)
                 #portfolios.rename(columns = {'index':'Stocks'}, inplace = True)
-            st.table(portfolios.style.hide())        
+            st.table(portfolios)        
 elif choice == 'Inter-sector':
     if st.button("Show all available stocks"):
         st.write("These stocks are available for selection:")
@@ -241,7 +249,7 @@ elif choice == 'Inter-sector':
                 #st.text(i)
             tickers = np.array(sel)
             yahoo_financials = YahooFinancials(np.array(sel))
-            data = yahoo_financials.get_historical_price_data(start_date='2020-04-01', 
+            data = yahoo_financials.get_historical_price_data(start_date='2021-04-01', 
                                                         end_date='2023-03-31', 
                                                         time_interval='daily')
             prices_df = pd.DataFrame({a: {x['formatted_date']: x['close'] for x in data[a]['prices']} for a in tickers})
