@@ -61,10 +61,11 @@ if choice == 'Nifty50':
         for i in n50stocks:
             st.text(i)
     sel = st.multiselect("Select stocks from the list(Click on 'Show stocks' above for the list):",n50stocks,n50stocks[0])
+    st.write(len(sel))
     amt = st.text_input('Enter amount for investment:',placeholder ="Enter amount")
     if st.button("Submit"):
-        if len(sel) == 0 | len(sel) == 1:
-            st.write(f"You have selected {sel} stock. Please enter at least two stocks")
+        if len(sel) == 0 or len(sel) == 1:
+            st.write(f"You have selected {len(sel)} stock. Please enter at least two stocks")
         else:
             st.write("These are the recommended investments for the selected stocks:")
             #for i in sel:
