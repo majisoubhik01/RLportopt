@@ -215,9 +215,14 @@ if choice == 'Nifty50':
                     return portfolios
 
                 portfolios = get_req_portfolios(returns)
+                fig, (ax1) = plt.subplots(1, 1,figsize=(30,20))
+                ax1.pie(portfolios.iloc[:,0], labels= portfolios.index, autopct='%.2f', textprops={'fontsize': 20});
+                ax1.set_title('MVP',fontsize = 30)
+                #ax2.pie(portfolios.iloc[:,1], labels=portfolios.index, autopct='%.2f', textprops={'fontsize': 20});
+                #ax2.set_title('HRP',fontsize = 30)
                 portfolios.iloc[:,0] = portfolios.iloc[:,0]*int(amt)
-                portfolios.reset_index(level=0, inplace=True)
-                portfolios.rename(columns = {'index':'Stocks'}, inplace = True)
+                #portfolios.reset_index(level=0, inplace=True)
+                #portfolios.rename(columns = {'index':'Stocks'}, inplace = True)
             st.table(portfolios.style.hide())        
 elif choice == 'Inter-sector':
     if st.button("Show all available stocks"):
