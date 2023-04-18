@@ -217,9 +217,10 @@ if choice == 'Nifty50':
                     '''
                     cov, corr = returns.cov(), returns.corr()
                     hrp = round(getHRP(cov, corr),2)
+                    hrp = pd.Series(hrp, index=cov.index)
                     mvp = getMVP(cov)
                     mvp = pd.Series(mvp, index=cov.index)
-                    portfolios = pd.DataFrame([round(mvp,2), hrp], index=['CLA', 'HRP']).T
+                    portfolios = pd.DataFrame([round(mvp,2), hrp], index=['MVP', 'HRP']).T
                     #portfolios = pd.DataFrame([ivp, hrp], index=['IVP', 'HRP']).T
                     return portfolios
                 portfolios = get_req_portfolios(returns)
