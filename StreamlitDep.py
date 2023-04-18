@@ -63,8 +63,8 @@ if choice == 'Nifty50':
     sel = st.multiselect("Select stocks from the list(Click on 'Show stocks' above for the list):",n50stocks,n50stocks[0])
     amt = st.text_input('Enter amount for investment:',placeholder ="Enter amount")
     if st.button("Submit"):
-        if len(sel) == 1:
-            st.write("You have selected one stock. Please enter at least two stocks")
+        if len(sel) == 0 | len(sel) == 1:
+            st.write(f"You have selected {sel} stock. Please enter at least two stocks")
         else:
             st.write("These are the recommended investments for the selected stocks:")
             #for i in sel:
@@ -226,8 +226,8 @@ elif choice == 'Inter-sector':
     sel = st.multiselect("Choose relevant stocks from the list(Click on 'Show stocks' above for the list):",stocks,stocks[0])
     amt = st.text_input('Enter amount for investment:',placeholder ="Enter amount")
     if st.button("Submit"):
-        if len(sel) == 1:
-            st.write("You have selected one stock. Please enter at least two stocks")
+        if len(sel) == 0 | len(sel) == 1:
+            st.write(f"You have selected {sel} stock. Please enter at least two stocks")
         else:
             st.write("These are the recommended investments for the selected stocks:")
             #for i in sel:
@@ -466,8 +466,8 @@ else:
             sel = st.multiselect("Select stocks in REALTY sector:",stocks[70:80],stocks[70])
     amt = st.text_input('Enter amount for investment:',placeholder ="Enter amount")
     if st.button("Submit"):
-        if len(sel) == 1:
-            st.write("You have selected one stock. Please enter at least two stocks")
+        if len(sel) == 0 | len(sel) == 1:
+            st.write(f"You have selected {sel} stock. Please enter at least two stocks")
         else:
             st.write("These are the recommended investments for the selected stocks:")
             #for i in sel:
