@@ -622,14 +622,15 @@ else:
 
                 def get_req_portfolios(returns):
                     cov, corr = returns.cov(), returns.corr()
-                    if algo == 'HRP':
-                        hrp = round(getHRP(cov, corr),2)
-                        portfolios = pd.DataFrame([hrp], index=['Amounts']).T
-                    else:
-                        mvp = getMVP(cov)
-                        mvp = pd.Series(mvp, index=cov.index)
-                        portfolios = pd.DataFrame([round(mvp,2)], index=['Amounts']).T
-                    #portfolios = pd.DataFrame([ivp, hrp], index=['IVP', 'HRP']).T
+                    #if algo == 'HRP':
+                    hrp = round(getHRP(cov, corr),2)
+                    hrp = pd.Series(hrp, index=cov.index)
+                       # portfolios = pd.DataFrame([hrp], index=['Amounts']).T
+                    #else:
+                    mvp = getMVP(cov)
+                    mvp = pd.Series(mvp, index=cov.index)
+                        #portfolios = pd.DataFrame([round(mvp,2)], index=['Amounts']).T
+                    portfolios = pd.DataFrame([mvp, hrp], index=['MVP', 'HRP']).T
                     return portfolios
 
                 portfolios = get_req_portfolios(returns)
