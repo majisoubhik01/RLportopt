@@ -246,10 +246,10 @@ if choice == 'Nifty50':
                 fig, ax1 = plt.subplots(1, 1,figsize=(20,20))
                 ax1.pie(portfolios[Results_oos['sharp_ratio_oos'].idxmax()], labels= portfolios.index, autopct='%.2f', textprops={'fontsize': 20});
                 ax1.set_title('Portfolio Allocations',fontsize = 30)
-                col1, mid, col2 = st.columns([60,5,50])
+                col1, mid, col2 = st.columns([60,2,60])
                 plt.savefig("portfolio.png", bbox_inches='tight')
                 with col1:
-                    st.image('portfolio.png',width=600)
+                    st.image('portfolio.png',width=500)
                 with col2:
                     st.table(portfolios[Results_oos['sharp_ratio_oos'].idxmax()]) 
                 
