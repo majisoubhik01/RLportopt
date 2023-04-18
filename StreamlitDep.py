@@ -418,6 +418,8 @@ elif choice == 'Inter-sector':
                 Results_oos = pd.DataFrame(dict(stdev_oos=stddev_oos, sharp_ratio_oos = sharp_ratio_oos))
                 st.table(Results_oos)
                 st.text(Results_oos.loc[Results_oos['sharp_ratio_oos'] == Results_oos['sharp_ratio_oos'].max()])
+                st.text(Results_oos['sharp_ratio_oos'].idxmax())
+                st.write(Results_oos['sharp_ratio_oos'].idxmax())
                 fig, ax1 = plt.subplots(1, 1,figsize=(30,20))
                 ax1.pie(portfolios.iloc[:,0], labels= portfolios.index, autopct='%.2f', textprops={'fontsize': 20});
                 ax1.set_title('Portfolio Allocations',fontsize = 30)
