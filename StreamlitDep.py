@@ -243,7 +243,7 @@ if choice == 'Nifty50':
                     portfolios.iloc[:,0] = portfolios.iloc[:,0]*int(amt)
                 else:
                     portfolios.iloc[:,1] = portfolios.iloc[:,1]*int(amt)
-                fig, ax1 = plt.subplots(1, 1,figsize=(30,20))
+                fig, ax1 = plt.subplots(1, 1,figsize=(20,20))
                 ax1.pie(portfolios[Results_oos['sharp_ratio_oos'].idxmax()], labels= portfolios.index, autopct='%.2f', textprops={'fontsize': 20});
                 ax1.set_title('Portfolio Allocations',fontsize = 30)
                 st.pyplot(fig)
@@ -438,7 +438,7 @@ elif choice == 'Inter-sector':
                     portfolios.iloc[:,0] = portfolios.iloc[:,0]*int(amt)
                 else:
                     portfolios.iloc[:,1] = portfolios.iloc[:,1]*int(amt)
-                fig, ax1 = plt.subplots(1, 1,figsize=(30,20))
+                fig, ax1 = plt.subplots(1, 1,figsize=(20,20))
                 ax1.pie(portfolios[Results_oos['sharp_ratio_oos'].idxmax()], labels= portfolios.index, autopct='%.2f', textprops={'fontsize': 20});
                 ax1.set_title('Portfolio Allocations',fontsize = 30)
                 st.pyplot(fig)
@@ -700,7 +700,7 @@ else:
                     portfolios.iloc[:,0] = portfolios.iloc[:,0]*int(amt)
                 else:
                     portfolios.iloc[:,1] = portfolios.iloc[:,1]*int(amt)
-                fig, ax1 = plt.subplots(1, 1,figsize=(30,20))
+                fig, ax1 = plt.subplots(1, 1,figsize=(20,20))
                 ax1.pie(portfolios[Results_oos['sharp_ratio_oos'].idxmax()], labels= portfolios.index, autopct='%.2f', textprops={'fontsize': 20});
                 ax1.set_title('Portfolio Allocations',fontsize = 30)
                 st.pyplot(fig)
