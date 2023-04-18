@@ -420,14 +420,14 @@ elif choice == 'Inter-sector':
                 #st.text(Results_oos.loc[Results_oos['sharp_ratio_oos'] == Results_oos['sharp_ratio_oos'].max()])
                 #st.text(Results_oos['sharp_ratio_oos'].idxmax())
                 #st.write(Results_oos['sharp_ratio_oos'].idxmax())
-                fig, ax1 = plt.subplots(1, 1,figsize=(30,20))
-                ax1.pie(portfolios.iloc[:,0], labels= portfolios.index, autopct='%.2f', textprops={'fontsize': 20});
-                ax1.set_title('Portfolio Allocations',fontsize = 30)
-                st.pyplot(fig)
                 if Results_oos['sharp_ratio_oos'].idxmax() == "MVP":
                     portfolios.iloc[:,0] = portfolios.iloc[:,0]*int(amt)
                 else:
                     portfolios.iloc[:,1] = portfolios.iloc[:,1]*int(amt)
+                fig, ax1 = plt.subplots(1, 1,figsize=(30,20))
+                ax1.pie(portfolios[Results_oos['sharp_ratio_oos'].idxmax()], labels= portfolios.index, autopct='%.2f', textprops={'fontsize': 20});
+                ax1.set_title('Portfolio Allocations',fontsize = 30)
+                st.pyplot(fig)
             st.table(portfolios[Results_oos['sharp_ratio_oos'].idxmax()])
 else:
     sector = st.selectbox("Select sector:",["AUTO","BANKING","FINANCIAL",
