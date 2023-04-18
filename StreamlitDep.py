@@ -65,7 +65,7 @@ if choice == 'Nifty50':
     amt = st.number_input('Enter amount for investment:',value=1000)
     if st.button("Submit"):
         if len(sel) == 0 or len(sel) == 1:
-            st.write(f"You have selected {len(sel)} stock. Please enter at least two stocks")
+            st.write(f"You have selected {len(sel)} stock. Please enter at least two stocks.")
         else:
             st.write("These are the recommended investments for the selected stocks:")
             #for i in sel:
@@ -257,7 +257,7 @@ elif choice == 'Inter-sector':
     amt = st.number_input('Enter amount for investment:',value=1000)
     if st.button("Submit"):
         if len(sel) == 0 or len(sel) == 1:
-            st.write(f"You have selected {sel} stock. Please enter at least two stocks")
+            st.write(f"You have selected {len(sel)} stock. Please enter at least two stocks.")
         else:
             st.write("These are the recommended investments for the selected stocks:")
             #for i in sel:
@@ -530,7 +530,7 @@ else:
     amt = st.number_input('Enter amount for investment:',value=1000)
     if st.button("Submit"):
         if len(sel) == 0 or len(sel) == 1:
-            st.write(f"You have selected {sel} stock. Please enter at least two stocks")
+            st.write(f"You have selected {len(sel)} stock. Please enter at least two stocks.")
         else:
             st.write("These are the recommended investments for the selected stocks:")
             #for i in sel:
