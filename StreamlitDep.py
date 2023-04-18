@@ -249,7 +249,7 @@ if choice == 'Nifty50':
                 col1, mid, col2 = st.columns([50,5,45])
                 plt.savefig("portfolio.png", bbox_inches='tight')
                 with col1:
-                    st.image('portfolio.png',width=800)
+                    st.image('portfolio.png',width=600)
                 with col2:
                     st.table(portfolios[Results_oos['sharp_ratio_oos'].idxmax()]) 
                 
