@@ -27,7 +27,7 @@ import cvxopt as opt
 from cvxopt import blas, solvers
 
 
-algo = "MVP"
+algo = "HRP"
 st.set_page_config(layout="wide")
 col1, mid, col2 = st.columns([15,5,50])
 with col1:
@@ -217,7 +217,7 @@ if choice == 'Nifty50':
                 portfolios = get_req_portfolios(returns)
                 fig, ax1 = plt.subplots(1, 1,figsize=(30,20))
                 ax1.pie(portfolios.iloc[:,0], labels= portfolios.index, autopct='%.2f', textprops={'fontsize': 20});
-                ax1.set_title('MVP',fontsize = 30)
+                ax1.set_title('Portfolio Allocations',fontsize = 30)
                 st.pyplot(fig)
                 #ax2.pie(portfolios.iloc[:,1], labels=portfolios.index, autopct='%.2f', textprops={'fontsize': 20});
                 #ax2.set_title('HRP',fontsize = 30)
