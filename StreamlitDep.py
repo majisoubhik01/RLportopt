@@ -215,9 +215,10 @@ if choice == 'Nifty50':
                     return portfolios
 
                 portfolios = get_req_portfolios(returns)
-                fig, (ax1) = plt.subplots(1, 1,figsize=(30,20))
+                fig, ax1 = plt.subplots(1, 1,figsize=(30,20))
                 ax1.pie(portfolios.iloc[:,0], labels= portfolios.index, autopct='%.2f', textprops={'fontsize': 20});
                 ax1.set_title('MVP',fontsize = 30)
+                st.pyplot(fig)
                 #ax2.pie(portfolios.iloc[:,1], labels=portfolios.index, autopct='%.2f', textprops={'fontsize': 20});
                 #ax2.set_title('HRP',fontsize = 30)
                 portfolios.iloc[:,0] = portfolios.iloc[:,0]*int(amt)
