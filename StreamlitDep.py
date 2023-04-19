@@ -33,7 +33,7 @@ col1, mid, col2 = st.columns([15,5,50])
 with col1:
     st.image('Logo_header@2x.jpg',width=300)
 with col2:
-    st.title('Portfolio Optimization using Reinforcement Learning')
+    st.title('Portfolio Optimization using HRP and MVP Algorithm')
     st.subheader("By Group 4")
 
 n50stocks = ["ADANIPORTS.NS", "ASIANPAINT.NS", "AXISBANK.NS", "BAJAJ-AUTO.NS", "BAJFINANCE.NS", "BHARTIARTL.NS", "HCLTECH.NS",
@@ -313,4 +313,3 @@ if st.button("Submit"):
                 st.image('portfolio.png',width=700)
             with col2:
                 st.table(portfolios[Results_oos['sharp_ratio_oos'].idxmax()]) 
-                
