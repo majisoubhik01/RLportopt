@@ -313,3 +313,4 @@ if st.button("Submit"):
                 st.image('portfolio.png',width=700)
             with col2:
                 st.table(portfolios[Results_oos['sharp_ratio_oos'].idxmax()]) 
+                
