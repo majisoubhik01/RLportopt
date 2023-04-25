@@ -31,7 +31,7 @@ algo = "HRP"
 st.set_page_config(layout="wide")
 left, mid, right = st.columns([40,20,40])
 with mid:
-    st.image("StockEasy Logo.png", width = 500)
+    st.image("StockEasy Logo.png", width = 400)
 # col1, mid, col2 = st.columns([15,5,50])
 # with col1:
 #     st.image('Logo_header@2x.jpg',width=300)
