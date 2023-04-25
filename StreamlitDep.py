@@ -29,12 +29,13 @@ from cvxopt import blas, solvers
 
 algo = "HRP"
 st.set_page_config(layout="wide")
-col1, mid, col2 = st.columns([15,5,50])
-with col1:
-    st.image('Logo_header@2x.jpg',width=300)
-with col2:
-    st.title('Portfolio Optimization using HRP and MVP Algorithm')
-    st.subheader("By Group 4")
+st.image("StockEasy Logo.png", width = 300)
+# col1, mid, col2 = st.columns([15,5,50])
+# with col1:
+#     st.image('Logo_header@2x.jpg',width=300)
+# with col2:
+#     st.title('Portfolio Optimization using HRP and MVP Algorithm')
+#     st.subheader("By Group 4")
 
 n50stocks = ["ADANIPORTS.NS", "ASIANPAINT.NS", "AXISBANK.NS", "BAJAJ-AUTO.NS", "BAJFINANCE.NS", "BHARTIARTL.NS", "HCLTECH.NS",
             "HDFCBANK.NS", "HDFCLIFE.NS", "HEROMOTOCO.NS", "HINDALCO.NS", "ICICIBANK.NS", "INDUSINDBK.NS", "INFY.NS", "IOC.NS",
